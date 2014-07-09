@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+body {
+    margin: 0px;
+    padding: 0px;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas" width="640" height="200" style="background:black"></canvas>
+<script>
+var t = 0;
+function drawShit() {
+    t += .1;
+    t %= 1;
+    console.log(t);
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var centerX = 0;
+
+    function drawThing(i) {
+        // save state
+        context.save();
+
+        // translate context
+        context.translate(canvas.width / 2, canvas.height / 2);
+
+        // scale context horizontally
+        context.scale(2, 1);
+
+        // draw circle which will be stretched into an oval
+//        var radius = 320*(1 - 1/(i * .1));
+        radius = i*15;
+        context.beginPath();
+        context.arc(centerX, 100/i, radius, 0, 2*Math.PI, false);
+
+        // restore to original state
+        context.restore();
+
+        // apply styling
+        context.lineWidth = 2;
+
+        var red = 2.5 * (100 - i);
+        red = 255;
+        var green = 0;//radius / 10;
+        var blue = 0;//radius / 10;
+        var color = "rgb(" + red + "," + green + "," + blue + ")";
+        context.strokeStyle = color;
+        context.stroke();
+        context.fillStyle = color;
+//        context.fill();
+    }
+    canvas.width = canvas.width;
+
+    for (var i=1; i < 100; i++) {
+        drawThing(i + t);
+    }
+}
+
+window.setInterval(drawShit, 100);
+
+</script>
+</body>
+</html>

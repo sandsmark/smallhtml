@@ -1,0 +1,56 @@
+<body>
+    <canvas id="canvas" width=640 height=480></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var amp=500;
+        var ang=0;
+
+        function twister() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, 640, 480);
+            for(var i=0; i<500; i++) {
+                var x1 = ((Math.sin((i/amp) + ang)) * 100) + 300;
+                var x2 = ((Math.sin((i/amp) + ang + Math.PI/2)) * 100) + 300;
+                var x3 = ((Math.sin((i/amp) + ang + Math.PI)) * 100) + 300;
+                var x4 = ((Math.sin((i/amp) + ang + Math.PI*3/2)) * 100) + 300;
+                ctx.strokeStyle = '#00f';
+                if (x1 < x2) {
+                    ctx.beginPath();
+                    ctx.moveTo(x1, i);
+                    ctx.lineTo(x2, i);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = '#f00';
+                if (x2 < x3) {
+                    ctx.beginPath();
+                    ctx.moveTo(x2, i);
+                    ctx.lineTo(x3, i);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = '#0f0';
+                if (x3 < x4) {
+                    ctx.beginPath();
+                    ctx.moveTo(x3, i);
+                    ctx.lineTo(x4, i);
+                    ctx.stroke();
+                }
+
+                ctx.strokeStyle = '#ff0';
+                if (x4 < x1) {
+                    ctx.beginPath();
+                    ctx.moveTo(x4, i);
+                    ctx.lineTo(x1, i);
+                    ctx.stroke();
+                }
+            }
+            ang+=0.05;
+            if (ang > Math.PI * 2) ang = 0;
+        }
+        setInterval(twister, 16);
+
+    </script>
+</body>
